@@ -1,10 +1,4 @@
-﻿using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 
 namespace BD_6
 {
@@ -12,7 +6,7 @@ namespace BD_6
     {
         public ApplicationContext() : base("name=ShopEntities")
         {
-
+           
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

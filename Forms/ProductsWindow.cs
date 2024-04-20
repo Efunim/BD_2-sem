@@ -25,7 +25,6 @@ namespace BD_6
 
         private void ProductsWindow_Load(object sender, EventArgs e)
         {
-            // TODO: данная строка кода позволяет загрузить данные в таблицу "shopDataSet.products". При необходимости она может быть перемещена или удалена.
 
         }
 
@@ -63,8 +62,9 @@ namespace BD_6
         {
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
+
         }
     }
 }

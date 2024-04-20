@@ -35,29 +35,35 @@
             this.btnOpenDepartments = new System.Windows.Forms.Button();
             this.btnReference = new System.Windows.Forms.Button();
             this.dgvEmployees = new System.Windows.Forms.DataGridView();
+            this.clmnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtFullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.departmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.departmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.phonenumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbDepartment = new System.Windows.Forms.ComboBox();
+            this.departmentBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.btnAddRecord = new System.Windows.Forms.Button();
-            this.clmnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtFullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.departmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.phonenumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPreviousEntry
             // 
-            this.btnPreviousEntry.Location = new System.Drawing.Point(883, 363);
+            this.btnPreviousEntry.Enabled = false;
+            this.btnPreviousEntry.Location = new System.Drawing.Point(717, 291);
             this.btnPreviousEntry.Name = "btnPreviousEntry";
-            this.btnPreviousEntry.Size = new System.Drawing.Size(54, 29);
+            this.btnPreviousEntry.Size = new System.Drawing.Size(138, 29);
             this.btnPreviousEntry.TabIndex = 3;
             this.btnPreviousEntry.Text = "<--";
             this.btnPreviousEntry.UseVisualStyleBackColor = true;
@@ -65,9 +71,9 @@
             // 
             // btnNextEntry
             // 
-            this.btnNextEntry.Location = new System.Drawing.Point(943, 363);
+            this.btnNextEntry.Location = new System.Drawing.Point(867, 291);
             this.btnNextEntry.Name = "btnNextEntry";
-            this.btnNextEntry.Size = new System.Drawing.Size(58, 29);
+            this.btnNextEntry.Size = new System.Drawing.Size(129, 29);
             this.btnNextEntry.TabIndex = 5;
             this.btnNextEntry.Text = "-->";
             this.btnNextEntry.UseVisualStyleBackColor = true;
@@ -75,11 +81,11 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(719, 362);
+            this.btnDelete.Location = new System.Drawing.Point(719, 419);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(118, 29);
+            this.btnDelete.Size = new System.Drawing.Size(282, 29);
             this.btnDelete.TabIndex = 6;
-            this.btnDelete.Text = "Удалить";
+            this.btnDelete.Text = "Удалить выбранную запись";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -87,7 +93,7 @@
             // 
             this.btnOpenDepartments.Location = new System.Drawing.Point(719, 47);
             this.btnOpenDepartments.Name = "btnOpenDepartments";
-            this.btnOpenDepartments.Size = new System.Drawing.Size(282, 29);
+            this.btnOpenDepartments.Size = new System.Drawing.Size(277, 29);
             this.btnOpenDepartments.TabIndex = 16;
             this.btnOpenDepartments.Text = "Отделы";
             this.btnOpenDepartments.UseVisualStyleBackColor = true;
@@ -97,7 +103,7 @@
             // 
             this.btnReference.Location = new System.Drawing.Point(719, 12);
             this.btnReference.Name = "btnReference";
-            this.btnReference.Size = new System.Drawing.Size(282, 29);
+            this.btnReference.Size = new System.Drawing.Size(277, 29);
             this.btnReference.TabIndex = 17;
             this.btnReference.Text = "Справка";
             this.btnReference.UseVisualStyleBackColor = true;
@@ -118,82 +124,12 @@
             this.dgvEmployees.Name = "dgvEmployees";
             this.dgvEmployees.RowHeadersWidth = 51;
             this.dgvEmployees.RowTemplate.Height = 24;
-            this.dgvEmployees.Size = new System.Drawing.Size(701, 379);
+            this.dgvEmployees.Size = new System.Drawing.Size(701, 436);
             this.dgvEmployees.TabIndex = 18;
             this.dgvEmployees.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_CellEndEdit);
             this.dgvEmployees.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmployees_ColumnHeaderMouseClick);
             this.dgvEmployees.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvEmployees_DataError);
             this.dgvEmployees.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvEmployees_UserDeletingRow);
-            // 
-            // departmentBindingSource
-            // 
-            this.departmentBindingSource.DataSource = typeof(BD_6.Department);
-            // 
-            // employeesBindingSource
-            // 
-            this.employeesBindingSource.DataSource = typeof(BD_6.Employees);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(719, 83);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 20);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "ФИО";
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(774, 80);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(227, 27);
-            this.txtName.TabIndex = 20;
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.Location = new System.Drawing.Point(810, 144);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(191, 27);
-            this.txtPhone.TabIndex = 22;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(719, 147);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 20);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "Телефон";
-            // 
-            // cmbDepartment
-            // 
-            this.cmbDepartment.DataSource = this.departmentBindingSource;
-            this.cmbDepartment.DisplayMember = "name";
-            this.cmbDepartment.FormattingEnabled = true;
-            this.cmbDepartment.Location = new System.Drawing.Point(789, 110);
-            this.cmbDepartment.Name = "cmbDepartment";
-            this.cmbDepartment.Size = new System.Drawing.Size(212, 28);
-            this.cmbDepartment.TabIndex = 23;
-            this.cmbDepartment.ValueMember = "departmentID";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(719, 113);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 20);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Отдел";
-            // 
-            // btnAddRecord
-            // 
-            this.btnAddRecord.Location = new System.Drawing.Point(723, 177);
-            this.btnAddRecord.Name = "btnAddRecord";
-            this.btnAddRecord.Size = new System.Drawing.Size(278, 29);
-            this.btnAddRecord.TabIndex = 25;
-            this.btnAddRecord.Text = "Добавить";
-            this.btnAddRecord.UseVisualStyleBackColor = true;
-            this.btnAddRecord.Click += new System.EventHandler(this.btnAddRecord_Click);
             // 
             // clmnId
             // 
@@ -225,6 +161,10 @@
             this.departmentIDDataGridViewTextBoxColumn.ValueMember = "departmentID";
             this.departmentIDDataGridViewTextBoxColumn.Width = 125;
             // 
+            // departmentBindingSource
+            // 
+            this.departmentBindingSource.DataSource = typeof(BD_6.Department);
+            // 
             // phonenumberDataGridViewTextBoxColumn
             // 
             this.phonenumberDataGridViewTextBoxColumn.DataPropertyName = "phone_number";
@@ -233,18 +173,108 @@
             this.phonenumberDataGridViewTextBoxColumn.Name = "phonenumberDataGridViewTextBoxColumn";
             this.phonenumberDataGridViewTextBoxColumn.Width = 200;
             // 
+            // employeesBindingSource
+            // 
+            this.employeesBindingSource.DataSource = typeof(BD_6.Employees);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 20);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "ФИО";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(58, 35);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(212, 27);
+            this.txtName.TabIndex = 20;
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.Location = new System.Drawing.Point(94, 102);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(176, 27);
+            this.txtPhone.TabIndex = 22;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 105);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 20);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Телефон";
+            // 
+            // cmbDepartment
+            // 
+            this.cmbDepartment.DataSource = this.departmentBindingSource1;
+            this.cmbDepartment.DisplayMember = "name";
+            this.cmbDepartment.FormattingEnabled = true;
+            this.cmbDepartment.Location = new System.Drawing.Point(73, 68);
+            this.cmbDepartment.Name = "cmbDepartment";
+            this.cmbDepartment.Size = new System.Drawing.Size(197, 28);
+            this.cmbDepartment.TabIndex = 23;
+            this.cmbDepartment.ValueMember = "departmentID";
+            // 
+            // departmentBindingSource1
+            // 
+            this.departmentBindingSource1.DataSource = typeof(BD_6.Department);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(64, 20);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "Отдел";
+            // 
+            // btnAddRecord
+            // 
+            this.btnAddRecord.Location = new System.Drawing.Point(6, 149);
+            this.btnAddRecord.Name = "btnAddRecord";
+            this.btnAddRecord.Size = new System.Drawing.Size(123, 29);
+            this.btnAddRecord.TabIndex = 25;
+            this.btnAddRecord.Text = "Добавить";
+            this.btnAddRecord.UseVisualStyleBackColor = true;
+            this.btnAddRecord.Click += new System.EventHandler(this.btnAddRecord_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.btnAddRecord);
+            this.groupBox1.Controls.Add(this.txtName);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.txtPhone);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.cmbDepartment);
+            this.groupBox1.Location = new System.Drawing.Point(719, 101);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(277, 184);
+            this.groupBox1.TabIndex = 26;
+            this.groupBox1.TabStop = false;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(148, 149);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(123, 29);
+            this.btnSearch.TabIndex = 26;
+            this.btnSearch.Text = "Искать";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // EmployeesWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 404);
-            this.Controls.Add(this.btnAddRecord);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cmbDepartment);
-            this.Controls.Add(this.txtPhone);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1008, 460);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvEmployees);
             this.Controls.Add(this.btnReference);
             this.Controls.Add(this.btnOpenDepartments);
@@ -260,8 +290,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -285,5 +317,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn txtFullName;
         private System.Windows.Forms.DataGridViewComboBoxColumn departmentIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn phonenumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.BindingSource departmentBindingSource1;
+        private System.Windows.Forms.Button btnSearch;
     }
 }
