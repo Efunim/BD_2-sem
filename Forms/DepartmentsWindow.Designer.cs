@@ -45,15 +45,15 @@
             this.btnReport = new System.Windows.Forms.ToolStripButton();
             this.btnDelete = new System.Windows.Forms.Button();
             this.dgvDepartments = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.departmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnNextEntry = new System.Windows.Forms.Button();
             this.btnPreviousEntry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.departmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDepartments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -157,6 +157,27 @@
             this.dgvDepartments.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDepartments_CellEndEdit);
             this.dgvDepartments.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvDepartments_UserDeletingRow);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "departmentID";
+            this.dataGridViewTextBoxColumn1.HeaderText = "departmentID";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.dataGridViewTextBoxColumn1.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Название Отдела";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 200;
+            // 
+            // departmentBindingSource
+            // 
+            this.departmentBindingSource.DataSource = typeof(BD_6.Department);
+            // 
             // btnNextEntry
             // 
             this.btnNextEntry.Location = new System.Drawing.Point(405, 139);
@@ -165,7 +186,7 @@
             this.btnNextEntry.TabIndex = 26;
             this.btnNextEntry.Text = "-->";
             this.btnNextEntry.UseVisualStyleBackColor = true;
-            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click_1);
+            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click);
             // 
             // btnPreviousEntry
             // 
@@ -176,6 +197,7 @@
             this.btnPreviousEntry.TabIndex = 25;
             this.btnPreviousEntry.Text = "<--";
             this.btnPreviousEntry.UseVisualStyleBackColor = true;
+            this.btnPreviousEntry.Click += new System.EventHandler(this.btnPreviousEntry_Click);
             // 
             // label1
             // 
@@ -212,27 +234,6 @@
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "departmentID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "departmentID";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            this.dataGridViewTextBoxColumn1.Width = 300;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "name";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Название Отдела";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 200;
-            // 
-            // departmentBindingSource
-            // 
-            this.departmentBindingSource.DataSource = typeof(BD_6.Department);
             // 
             // DepartmentsWindow
             // 

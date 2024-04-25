@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnPreviousEntry = new System.Windows.Forms.Button();
-            this.btnNextEntry = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnOpenDepartments = new System.Windows.Forms.Button();
             this.btnReference = new System.Windows.Forms.Button();
@@ -57,27 +55,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnPreviousEntry
-            // 
-            this.btnPreviousEntry.Enabled = false;
-            this.btnPreviousEntry.Location = new System.Drawing.Point(717, 291);
-            this.btnPreviousEntry.Name = "btnPreviousEntry";
-            this.btnPreviousEntry.Size = new System.Drawing.Size(138, 29);
-            this.btnPreviousEntry.TabIndex = 3;
-            this.btnPreviousEntry.Text = "<--";
-            this.btnPreviousEntry.UseVisualStyleBackColor = true;
-            this.btnPreviousEntry.Click += new System.EventHandler(this.btnPreviousEntry_Click);
-            // 
-            // btnNextEntry
-            // 
-            this.btnNextEntry.Location = new System.Drawing.Point(867, 291);
-            this.btnNextEntry.Name = "btnNextEntry";
-            this.btnNextEntry.Size = new System.Drawing.Size(129, 29);
-            this.btnNextEntry.TabIndex = 5;
-            this.btnNextEntry.Text = "-->";
-            this.btnNextEntry.UseVisualStyleBackColor = true;
-            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click);
             // 
             // btnDelete
             // 
@@ -127,8 +104,6 @@
             this.dgvEmployees.Size = new System.Drawing.Size(701, 436);
             this.dgvEmployees.TabIndex = 18;
             this.dgvEmployees.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_CellEndEdit);
-            this.dgvEmployees.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmployees_ColumnHeaderMouseClick);
-            this.dgvEmployees.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvEmployees_DataError);
             this.dgvEmployees.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvEmployees_UserDeletingRow);
             // 
             // clmnId
@@ -253,7 +228,7 @@
             this.groupBox1.Controls.Add(this.txtPhone);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmbDepartment);
-            this.groupBox1.Location = new System.Drawing.Point(719, 101);
+            this.groupBox1.Location = new System.Drawing.Point(719, 82);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(277, 184);
             this.groupBox1.TabIndex = 26;
@@ -279,8 +254,6 @@
             this.Controls.Add(this.btnReference);
             this.Controls.Add(this.btnOpenDepartments);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnNextEntry);
-            this.Controls.Add(this.btnPreviousEntry);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EmployeesWindow";
@@ -298,8 +271,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnPreviousEntry;
-        private System.Windows.Forms.Button btnNextEntry;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnOpenDepartments;
         private System.Windows.Forms.Button btnReference;

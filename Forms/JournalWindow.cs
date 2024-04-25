@@ -1,89 +1,142 @@
 ﻿using BD_6.Forms.Reports;
-using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+using BD_6.Source;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BD_6
 {
     public partial class JournalWindow : Form
     {
+        private DbService<Journal> _db;
+
         public JournalWindow()
         {
             InitializeComponent();
-            MainMenu.Context.Employees.Load();
-            MainMenu.Context.Products.Load();
-            MainMenu.Context.Providers.Load();
-            MainMenu.Context.Journals.Load();
+            _db = new DbService<Journal>(this.journalBindingSource);
 
-            cmbProduct.DataSource = MainMenu.Context.Products.Local.ToList();
-            cmbProvider.DataSource = MainMenu.Context.Providers.Local.ToList();
-            cmbEmployee.DataSource = MainMenu.Context.Employees.Local.ToList();
+            this.employeesBindingSource.DataSource = (new DbService<Employees>(employeesBindingSource))
+                .Table.Local.ToBindingList();
+            this.providerBindingSource.DataSource = (new DbService<Provider>(providerBindingSource))
+                .Table.Local.ToBindingList();
+            this.productsBindingSource.DataSource = (new DbService<Products>(productsBindingSource))
+                .Table.Local.ToBindingList();
 
-            this.journalBindingSource.DataSource = MainMenu.Context.Journals.Local.ToBindingList();
+            SetProductDataSource();
+            SetProviderDataSource();
+            SetEmployeeDataSource();
+
+            cmbZnak.SelectedIndex = 0;
+            dtpStartDate.CustomFormat = " ";
+            dtpEndDate.CustomFormat = " ";
+
+            dtpEndDate.Format = DateTimePickerFormat.Custom;
+            dtpStartDate.Format = DateTimePickerFormat.Custom;
+
+            dgvJournal.Columns["purchasedateDataGridViewTextBoxColumn"].DefaultCellStyle.Format = "dd.MM.yyyy";
         }
 
-        private void tspbtnBack_Click(object sender, EventArgs e)
+        private void SetProviderDataSource()
         {
-            this.Close();
+            this.providerBindingSource1.DataSource = (new DbService<Provider>(providerBindingSource))
+    .Table.Local.ToBindingList();
+            cmbProvider.SelectedIndex = -1;
         }
-
-        private void Journal_Load(object sender, EventArgs e)
+        private void SetProductDataSource()
         {
-
+            this.productsBindingSource1.DataSource = (new DbService<Products>(productsBindingSource))
+                .Table.Local.ToBindingList();
+            cmbProduct.SelectedIndex = -1;
         }
-
-        private void journalBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void SetEmployeeDataSource()
         {
-            this.Validate();
-
+            this.employeesBindingSource1.DataSource = (new DbService<Employees>(employeesBindingSource))
+                .Table.Local.ToBindingList();
+            cmbEmployee.SelectedIndex = -1;
         }
 
+        #region Навигация
         private void btnPreviousEntry_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnFirstEntry_Click(object sender, EventArgs e)
         {
         }
 
         private void btnNextEntry_Click(object sender, EventArgs e)
         {
         }
+        #endregion
 
-        private void btnLastEntry_Click(object sender, EventArgs e)
-        {
-        }
-
+        #region Удаление
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            dgvJournal_UserDeletingRow(null,
+                new DataGridViewRowCancelEventArgs(dgvJournal.CurrentRow));
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void dgvJournal_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (txtDate.Text == "" || txtCount.Text == "")
-            {
-                MessageBox.Show("Неверные данные!");
-                return;
-            }
-
+            e.Cancel = !_db.Remove(e.Row.Index);
+            this.Validate();
         }
+        #endregion
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (!isValidData())
+            {
+                MessageBox.Show("Некорректные данные!");
+                return;
+            }
+
+            _db.Add(new Journal()
+            {
+                employeeID = (int)cmbEmployee.SelectedValue,
+                productID = (int)cmbProduct.SelectedValue,
+                providerID = (int)cmbProvider.SelectedValue,
+                purchase_date = dtpStartDate.Format == DateTimePickerFormat.Custom
+                                ? (DateTime?)null
+                                : dtpStartDate.Value,
+                count = int.Parse(txtCount.Text),
+
+            });
+
+            this.Validate();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private bool isValidData()
         {
+            return cmbEmployee.SelectedIndex > -1
+                && cmbProduct.SelectedIndex > -1
+                && cmbProvider.SelectedIndex > -1
+                && txtCount.Text != "";
         }
+
+        private void dgvJournal_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            _db.SaveChanges();
+        }
+
+        #region DateTimePickers
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTimePicker dtp = sender as DateTimePicker;
+            dtp.Format = DateTimePickerFormat.Short;
+        }
+
+        private void btnClearDate_Click(object sender, EventArgs e)
+        {
+            dtpStartDate.Format = DateTimePickerFormat.Custom;
+        }
+
+
+        private void btnClearEndDate_Click(object sender, EventArgs e)
+        {
+            dtpEndDate.Format = DateTimePickerFormat.Custom;
+        }
+        #endregion
+
+        #region Другие окна
 
         private void btnEmployees_Click(object sender, EventArgs e)
         {
@@ -93,6 +146,7 @@ namespace BD_6
             departmentsWindow.ShowDialog(this);
 
             cmbEmployee.SelectedIndex = index;
+            SetEmployeeDataSource();
         }
 
         private void btnProviders_Click(object sender, EventArgs e)
@@ -103,6 +157,7 @@ namespace BD_6
             window.ShowDialog(this);
 
             cmbProvider.SelectedIndex = index;
+            SetProviderDataSource();
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
@@ -113,12 +168,76 @@ namespace BD_6
             window.ShowDialog(this);
 
             cmbProduct.SelectedIndex = index;
+            SetProductDataSource();
         }
+
 
         private void btnReport_Click(object sender, EventArgs e)
         {
             JournalReportWindow reportWindow = new JournalReportWindow();
             reportWindow.ShowDialog();
+        }
+        #endregion
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            _db.FilterData(CreateFilter());
+            this.Validate();
+        }
+
+        private IQueryable<Journal> CreateFilter()
+        {
+            IQueryable<Journal> query = _db.Table.AsQueryable();
+
+            if (dtpStartDate.Format != DateTimePickerFormat.Custom)
+            {
+                query = query.Where(j => j.purchase_date >= dtpStartDate.Value);
+            }
+
+            if (dtpEndDate.Format != DateTimePickerFormat.Custom)
+            {
+                query = query.Where(j => j.purchase_date <= dtpEndDate.Value);
+            }
+
+            if (cmbEmployee.SelectedIndex > -1)
+            {
+                query = query.Where(j => j.employeeID == (int)cmbEmployee.SelectedValue);
+            }
+
+            if (cmbProvider.SelectedIndex > -1)
+            {
+                query = query.Where(j => j.providerID == (int)cmbProvider.SelectedValue);
+            }
+
+            if (cmbProduct.SelectedIndex > -1)
+            {
+                query = query.Where(j => j.productID == (int)cmbProduct.SelectedValue);
+            }
+
+            if (txtCount.Text != "")
+            {
+                int count = int.Parse(txtCount.Text);
+                switch (cmbZnak.SelectedItem)
+                {
+                    case "=":
+                        query = query.Where(x => x.count == count);
+                        break;
+                    case ">=":
+                        query = query.Where(x => x.count >= count);
+                        break;
+                    case "<=":
+                        query = query.Where(x => x.count <= count);
+                        break;
+                    case "<":
+                        query = query.Where(x => x.count < count);
+                        break;
+                    case ">":
+                        query = query.Where(x => x.count > count);
+                        break;
+                }
+            }
+
+            return query;
         }
     }
 }

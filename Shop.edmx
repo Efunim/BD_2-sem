@@ -27,16 +27,17 @@
           </Key>
           <Property Name="recordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="employeeID" Type="int" Nullable="false" />
           <Property Name="providerID" Type="int" Nullable="false" />
           <Property Name="purchase_date" Type="date" />
           <Property Name="count" Type="int" Nullable="false" />
-          <Property Name="employeeID" Type="int" Nullable="false" />
+          <Property Name="current_price" Type="int" />
         </EntityType>
         <EntityType Name="products">
           <Key>
             <PropertyRef Name="productID" />
           </Key>
-          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="price" Type="int" Nullable="false" />
         </EntityType>
@@ -67,42 +68,6 @@
             </Principal>
             <Dependent Role="employees">
               <PropertyRef Name="departmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_employee_journal">
-          <End Role="employees" Type="Self.employees" Multiplicity="1" />
-          <End Role="journal" Type="Self.journal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="employees">
-              <PropertyRef Name="employeeID" />
-            </Principal>
-            <Dependent Role="journal">
-              <PropertyRef Name="employeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_products_journal">
-          <End Role="products" Type="Self.products" Multiplicity="1" />
-          <End Role="journal" Type="Self.journal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="products">
-              <PropertyRef Name="productID" />
-            </Principal>
-            <Dependent Role="journal">
-              <PropertyRef Name="productID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_provider_journal">
-          <End Role="provider" Type="Self.provider" Multiplicity="1" />
-          <End Role="journal" Type="Self.journal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="provider">
-              <PropertyRef Name="providerID" />
-            </Principal>
-            <Dependent Role="journal">
-              <PropertyRef Name="providerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -154,18 +119,6 @@
             <End Role="department" EntitySet="department" />
             <End Role="employees" EntitySet="employees" />
           </AssociationSet>
-          <AssociationSet Name="FK_employee_journal" Association="Self.FK_employee_journal">
-            <End Role="employees" EntitySet="employees" />
-            <End Role="journal" EntitySet="journal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_products_journal" Association="Self.FK_products_journal">
-            <End Role="products" EntitySet="products" />
-            <End Role="journal" EntitySet="journal" />
-          </AssociationSet>
-          <AssociationSet Name="FK_provider_journal" Association="Self.FK_provider_journal">
-            <End Role="provider" EntitySet="provider" />
-            <End Role="journal" EntitySet="journal" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -203,12 +156,13 @@
           <NavigationProperty Name="employees" Relationship="Self.FK_employee_journal" FromRole="journal" ToRole="employees" />
           <NavigationProperty Name="products" Relationship="Self.FK_products_journal" FromRole="journal" ToRole="products" />
           <NavigationProperty Name="provider" Relationship="Self.FK_provider_journal" FromRole="journal" ToRole="provider" />
+          <Property Name="current_price" Type="Int32" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="productID" />
           </Key>
-          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Int32" Nullable="false" />
           <NavigationProperty Name="journal" Relationship="Self.FK_products_journal" FromRole="products" ToRole="journal" />
@@ -378,6 +332,7 @@
           <EntitySetMapping Name="journal">
             <EntityTypeMapping TypeName="shopModel.Journal">
               <MappingFragment StoreEntitySet="journal">
+                <ScalarProperty Name="current_price" ColumnName="current_price" />
                 <ScalarProperty Name="recordID" ColumnName="recordID" />
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="providerID" ColumnName="providerID" />

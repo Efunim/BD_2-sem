@@ -33,45 +33,55 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbProduct = new System.Windows.Forms.ComboBox();
+            this.productsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.productsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtDate = new System.Windows.Forms.TextBox();
             this.journalBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmbEmployee = new System.Windows.Forms.ComboBox();
+            this.employeesBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.txtCount = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnProducts = new System.Windows.Forms.Button();
             this.btnProviders = new System.Windows.Forms.Button();
             this.btnEmployees = new System.Windows.Forms.Button();
-            this.btnPreviousEntry = new System.Windows.Forms.Button();
-            this.btnNextEntry = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
             this.cmbProvider = new System.Windows.Forms.ComboBox();
+            this.providerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.providerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.recordIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.providerIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnClearEndDate = new System.Windows.Forms.Button();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.btnClearDate = new System.Windows.Forms.Button();
+            this.cmbZnak = new System.Windows.Forms.ComboBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.dgvJournal = new System.Windows.Forms.DataGridView();
+            this.employeeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.productColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.providerColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.purchasedateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.providerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtPriceZnak = new System.Windows.Forms.ComboBox();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.journalBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJournal)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(6, 223);
+            this.btnAdd.Location = new System.Drawing.Point(6, 300);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(130, 28);
             this.btnAdd.TabIndex = 21;
@@ -81,7 +91,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(909, 483);
+            this.btnDelete.Location = new System.Drawing.Point(952, 483);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(149, 28);
             this.btnDelete.TabIndex = 19;
@@ -100,7 +110,7 @@
             // 
             // cmbProduct
             // 
-            this.cmbProduct.DataSource = this.productsBindingSource;
+            this.cmbProduct.DataSource = this.productsBindingSource1;
             this.cmbProduct.DisplayMember = "name";
             this.cmbProduct.FormattingEnabled = true;
             this.cmbProduct.Location = new System.Drawing.Point(71, 30);
@@ -108,6 +118,10 @@
             this.cmbProduct.Size = new System.Drawing.Size(231, 28);
             this.cmbProduct.TabIndex = 25;
             this.cmbProduct.ValueMember = "productID";
+            // 
+            // productsBindingSource1
+            // 
+            this.productsBindingSource1.DataSource = typeof(BD_6.Products);
             // 
             // productsBindingSource
             // 
@@ -125,19 +139,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 107);
+            this.label3.Location = new System.Drawing.Point(6, 106);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 20);
             this.label3.TabIndex = 28;
             this.label3.Text = "Дата";
-            // 
-            // txtDate
-            // 
-            this.txtDate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.journalBindingSource, "purchase_date", true));
-            this.txtDate.Location = new System.Drawing.Point(66, 104);
-            this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(236, 27);
-            this.txtDate.TabIndex = 29;
             // 
             // journalBindingSource
             // 
@@ -145,18 +151,27 @@
             // 
             // cmbEmployee
             // 
+            this.cmbEmployee.DataSource = this.employeesBindingSource1;
             this.cmbEmployee.DisplayMember = "full_name";
             this.cmbEmployee.FormattingEnabled = true;
-            this.cmbEmployee.Location = new System.Drawing.Point(116, 180);
+            this.cmbEmployee.Location = new System.Drawing.Point(116, 254);
             this.cmbEmployee.Name = "cmbEmployee";
             this.cmbEmployee.Size = new System.Drawing.Size(186, 28);
             this.cmbEmployee.TabIndex = 31;
             this.cmbEmployee.ValueMember = "employeeID";
             // 
+            // employeesBindingSource1
+            // 
+            this.employeesBindingSource1.DataSource = typeof(BD_6.Employees);
+            // 
+            // employeesBindingSource
+            // 
+            this.employeesBindingSource.DataSource = typeof(BD_6.Employees);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 183);
+            this.label4.Location = new System.Drawing.Point(4, 257);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 20);
             this.label4.TabIndex = 30;
@@ -164,16 +179,15 @@
             // 
             // txtCount
             // 
-            this.txtCount.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.journalBindingSource, "count", true));
-            this.txtCount.Location = new System.Drawing.Point(116, 141);
+            this.txtCount.Location = new System.Drawing.Point(118, 182);
             this.txtCount.Name = "txtCount";
-            this.txtCount.Size = new System.Drawing.Size(186, 27);
+            this.txtCount.Size = new System.Drawing.Size(132, 27);
             this.txtCount.TabIndex = 33;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 144);
+            this.label5.Location = new System.Drawing.Point(6, 185);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 20);
             this.label5.TabIndex = 32;
@@ -181,7 +195,7 @@
             // 
             // btnProducts
             // 
-            this.btnProducts.Location = new System.Drawing.Point(748, 12);
+            this.btnProducts.Location = new System.Drawing.Point(791, 12);
             this.btnProducts.Name = "btnProducts";
             this.btnProducts.Size = new System.Drawing.Size(149, 28);
             this.btnProducts.TabIndex = 34;
@@ -191,7 +205,7 @@
             // 
             // btnProviders
             // 
-            this.btnProviders.Location = new System.Drawing.Point(748, 49);
+            this.btnProviders.Location = new System.Drawing.Point(791, 49);
             this.btnProviders.Name = "btnProviders";
             this.btnProviders.Size = new System.Drawing.Size(149, 28);
             this.btnProviders.TabIndex = 35;
@@ -201,7 +215,7 @@
             // 
             // btnEmployees
             // 
-            this.btnEmployees.Location = new System.Drawing.Point(909, 12);
+            this.btnEmployees.Location = new System.Drawing.Point(952, 12);
             this.btnEmployees.Name = "btnEmployees";
             this.btnEmployees.Size = new System.Drawing.Size(149, 28);
             this.btnEmployees.TabIndex = 36;
@@ -209,29 +223,9 @@
             this.btnEmployees.UseVisualStyleBackColor = true;
             this.btnEmployees.Click += new System.EventHandler(this.btnEmployees_Click);
             // 
-            // btnPreviousEntry
-            // 
-            this.btnPreviousEntry.Location = new System.Drawing.Point(748, 353);
-            this.btnPreviousEntry.Name = "btnPreviousEntry";
-            this.btnPreviousEntry.Size = new System.Drawing.Size(149, 28);
-            this.btnPreviousEntry.TabIndex = 16;
-            this.btnPreviousEntry.Text = "<--";
-            this.btnPreviousEntry.UseVisualStyleBackColor = true;
-            this.btnPreviousEntry.Click += new System.EventHandler(this.btnPreviousEntry_Click);
-            // 
-            // btnNextEntry
-            // 
-            this.btnNextEntry.Location = new System.Drawing.Point(909, 353);
-            this.btnNextEntry.Name = "btnNextEntry";
-            this.btnNextEntry.Size = new System.Drawing.Size(149, 28);
-            this.btnNextEntry.TabIndex = 18;
-            this.btnNextEntry.Text = "-->";
-            this.btnNextEntry.UseVisualStyleBackColor = true;
-            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click);
-            // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(909, 49);
+            this.btnReport.Location = new System.Drawing.Point(952, 49);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(149, 28);
             this.btnReport.TabIndex = 37;
@@ -241,7 +235,7 @@
             // 
             // cmbProvider
             // 
-            this.cmbProvider.DataSource = this.providerBindingSource;
+            this.cmbProvider.DataSource = this.providerBindingSource1;
             this.cmbProvider.DisplayMember = "name";
             this.cmbProvider.Location = new System.Drawing.Point(116, 67);
             this.cmbProvider.Name = "cmbProvider";
@@ -249,13 +243,26 @@
             this.cmbProvider.TabIndex = 38;
             this.cmbProvider.ValueMember = "providerID";
             // 
+            // providerBindingSource1
+            // 
+            this.providerBindingSource1.DataSource = typeof(BD_6.Provider);
+            // 
             // providerBindingSource
             // 
             this.providerBindingSource.DataSource = typeof(BD_6.Provider);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.txtPriceZnak);
+            this.groupBox1.Controls.Add(this.txtPrice);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.btnClearEndDate);
+            this.groupBox1.Controls.Add(this.dtpEndDate);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.dtpStartDate);
+            this.groupBox1.Controls.Add(this.btnClearDate);
+            this.groupBox1.Controls.Add(this.cmbZnak);
+            this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.cmbProduct);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
@@ -263,77 +270,152 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtCount);
             this.groupBox1.Controls.Add(this.btnAdd);
-            this.groupBox1.Controls.Add(this.txtDate);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cmbEmployee);
-            this.groupBox1.Location = new System.Drawing.Point(748, 83);
+            this.groupBox1.Location = new System.Drawing.Point(791, 83);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 264);
+            this.groupBox1.Size = new System.Drawing.Size(310, 336);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавить запись";
             // 
-            // button1
+            // btnClearEndDate
             // 
-            this.button1.Location = new System.Drawing.Point(172, 223);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 28);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "Искать";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnClearEndDate.Location = new System.Drawing.Point(277, 141);
+            this.btnClearEndDate.Name = "btnClearEndDate";
+            this.btnClearEndDate.Size = new System.Drawing.Size(25, 29);
+            this.btnClearEndDate.TabIndex = 46;
+            this.btnClearEndDate.Text = "X";
+            this.btnClearEndDate.UseVisualStyleBackColor = true;
+            this.btnClearEndDate.Click += new System.EventHandler(this.btnClearEndDate_Click);
             // 
-            // dataGridView1
+            // dtpEndDate
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.recordIDDataGridViewTextBoxColumn,
-            this.productIDDataGridViewTextBoxColumn,
-            this.providerIDDataGridViewTextBoxColumn,
+            this.dtpEndDate.CustomFormat = "";
+            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpEndDate.Location = new System.Drawing.Point(143, 142);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(128, 27);
+            this.dtpEndDate.TabIndex = 45;
+            this.dtpEndDate.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 145);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(137, 20);
+            this.label6.TabIndex = 44;
+            this.label6.Text = "Конец периода";
+            // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.CustomFormat = "";
+            this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpStartDate.Location = new System.Drawing.Point(60, 103);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(211, 27);
+            this.dtpStartDate.TabIndex = 41;
+            this.dtpStartDate.ValueChanged += new System.EventHandler(this.dateTimePicker_ValueChanged);
+            // 
+            // btnClearDate
+            // 
+            this.btnClearDate.Location = new System.Drawing.Point(277, 102);
+            this.btnClearDate.Name = "btnClearDate";
+            this.btnClearDate.Size = new System.Drawing.Size(25, 29);
+            this.btnClearDate.TabIndex = 42;
+            this.btnClearDate.Text = "X";
+            this.btnClearDate.UseVisualStyleBackColor = true;
+            this.btnClearDate.Click += new System.EventHandler(this.btnClearDate_Click);
+            // 
+            // cmbZnak
+            // 
+            this.cmbZnak.FormattingEnabled = true;
+            this.cmbZnak.Items.AddRange(new object[] {
+            "=",
+            "<=",
+            ">=",
+            "<",
+            ">"});
+            this.cmbZnak.Location = new System.Drawing.Point(256, 181);
+            this.cmbZnak.Name = "cmbZnak";
+            this.cmbZnak.Size = new System.Drawing.Size(48, 28);
+            this.cmbZnak.TabIndex = 40;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(172, 300);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(130, 28);
+            this.btnSearch.TabIndex = 39;
+            this.btnSearch.Text = "Искать";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // dgvJournal
+            // 
+            this.dgvJournal.AllowUserToAddRows = false;
+            this.dgvJournal.AutoGenerateColumns = false;
+            this.dgvJournal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvJournal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.employeeColumn,
+            this.productColumn,
+            this.providerColumn,
             this.purchasedateDataGridViewTextBoxColumn,
-            this.countDataGridViewTextBoxColumn,
-            this.employeeIDDataGridViewTextBoxColumn,
-            this.employeesDataGridViewTextBoxColumn,
-            this.productsDataGridViewTextBoxColumn,
-            this.providerDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.journalBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(729, 499);
-            this.dataGridView1.TabIndex = 40;
+            this.countDataGridViewTextBoxColumn});
+            this.dgvJournal.DataSource = this.journalBindingSource;
+            this.dgvJournal.Location = new System.Drawing.Point(13, 12);
+            this.dgvJournal.Name = "dgvJournal";
+            this.dgvJournal.RowHeadersWidth = 51;
+            this.dgvJournal.RowTemplate.Height = 24;
+            this.dgvJournal.Size = new System.Drawing.Size(772, 499);
+            this.dgvJournal.TabIndex = 40;
+            this.dgvJournal.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJournal_CellEndEdit);
+            this.dgvJournal.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvJournal_UserDeletingRow);
             // 
-            // recordIDDataGridViewTextBoxColumn
+            // employeeColumn
             // 
-            this.recordIDDataGridViewTextBoxColumn.DataPropertyName = "recordID";
-            this.recordIDDataGridViewTextBoxColumn.HeaderText = "recordID";
-            this.recordIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.recordIDDataGridViewTextBoxColumn.Name = "recordIDDataGridViewTextBoxColumn";
-            this.recordIDDataGridViewTextBoxColumn.Visible = false;
-            this.recordIDDataGridViewTextBoxColumn.Width = 125;
+            this.employeeColumn.DataPropertyName = "employeeID";
+            this.employeeColumn.DataSource = this.employeesBindingSource;
+            this.employeeColumn.DisplayMember = "full_name";
+            this.employeeColumn.HeaderText = "Сотрудник";
+            this.employeeColumn.MinimumWidth = 6;
+            this.employeeColumn.Name = "employeeColumn";
+            this.employeeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.employeeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.employeeColumn.ValueMember = "employeeID";
+            this.employeeColumn.Width = 250;
             // 
-            // productIDDataGridViewTextBoxColumn
+            // productColumn
             // 
-            this.productIDDataGridViewTextBoxColumn.DataPropertyName = "productID";
-            this.productIDDataGridViewTextBoxColumn.HeaderText = "productID";
-            this.productIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.productIDDataGridViewTextBoxColumn.Name = "productIDDataGridViewTextBoxColumn";
-            this.productIDDataGridViewTextBoxColumn.Width = 125;
+            this.productColumn.DataPropertyName = "productID";
+            this.productColumn.DataSource = this.productsBindingSource;
+            this.productColumn.DisplayMember = "name";
+            this.productColumn.HeaderText = "Товар";
+            this.productColumn.MinimumWidth = 6;
+            this.productColumn.Name = "productColumn";
+            this.productColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.productColumn.ValueMember = "productID";
+            this.productColumn.Width = 125;
             // 
-            // providerIDDataGridViewTextBoxColumn
+            // providerColumn
             // 
-            this.providerIDDataGridViewTextBoxColumn.DataPropertyName = "providerID";
-            this.providerIDDataGridViewTextBoxColumn.HeaderText = "providerID";
-            this.providerIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.providerIDDataGridViewTextBoxColumn.Name = "providerIDDataGridViewTextBoxColumn";
-            this.providerIDDataGridViewTextBoxColumn.Width = 125;
+            this.providerColumn.DataPropertyName = "providerID";
+            this.providerColumn.DataSource = this.providerBindingSource;
+            this.providerColumn.DisplayMember = "name";
+            this.providerColumn.HeaderText = "Поставщик";
+            this.providerColumn.MinimumWidth = 6;
+            this.providerColumn.Name = "providerColumn";
+            this.providerColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.providerColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.providerColumn.ValueMember = "providerID";
+            this.providerColumn.Width = 125;
             // 
             // purchasedateDataGridViewTextBoxColumn
             // 
             this.purchasedateDataGridViewTextBoxColumn.DataPropertyName = "purchase_date";
-            this.purchasedateDataGridViewTextBoxColumn.HeaderText = "purchase_date";
+            this.purchasedateDataGridViewTextBoxColumn.HeaderText = "Дата";
             this.purchasedateDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.purchasedateDataGridViewTextBoxColumn.Name = "purchasedateDataGridViewTextBoxColumn";
             this.purchasedateDataGridViewTextBoxColumn.Width = 125;
@@ -341,69 +423,68 @@
             // countDataGridViewTextBoxColumn
             // 
             this.countDataGridViewTextBoxColumn.DataPropertyName = "count";
-            this.countDataGridViewTextBoxColumn.HeaderText = "count";
+            this.countDataGridViewTextBoxColumn.HeaderText = "Количество";
             this.countDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
             this.countDataGridViewTextBoxColumn.Width = 125;
             // 
-            // employeeIDDataGridViewTextBoxColumn
+            // txtPriceZnak
             // 
-            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "employeeID";
-            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "employeeID";
-            this.employeeIDDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
-            this.employeeIDDataGridViewTextBoxColumn.Width = 125;
+            this.txtPriceZnak.FormattingEnabled = true;
+            this.txtPriceZnak.Items.AddRange(new object[] {
+            "=",
+            "<=",
+            ">=",
+            "<",
+            ">"});
+            this.txtPriceZnak.Location = new System.Drawing.Point(256, 214);
+            this.txtPriceZnak.Name = "txtPriceZnak";
+            this.txtPriceZnak.Size = new System.Drawing.Size(48, 28);
+            this.txtPriceZnak.TabIndex = 49;
             // 
-            // employeesDataGridViewTextBoxColumn
+            // txtPrice
             // 
-            this.employeesDataGridViewTextBoxColumn.DataPropertyName = "employees";
-            this.employeesDataGridViewTextBoxColumn.HeaderText = "employees";
-            this.employeesDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.employeesDataGridViewTextBoxColumn.Name = "employeesDataGridViewTextBoxColumn";
-            this.employeesDataGridViewTextBoxColumn.Width = 125;
+            this.txtPrice.Location = new System.Drawing.Point(64, 215);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(186, 27);
+            this.txtPrice.TabIndex = 48;
             // 
-            // productsDataGridViewTextBoxColumn
+            // label7
             // 
-            this.productsDataGridViewTextBoxColumn.DataPropertyName = "products";
-            this.productsDataGridViewTextBoxColumn.HeaderText = "products";
-            this.productsDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.productsDataGridViewTextBoxColumn.Name = "productsDataGridViewTextBoxColumn";
-            this.productsDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // providerDataGridViewTextBoxColumn
-            // 
-            this.providerDataGridViewTextBoxColumn.DataPropertyName = "provider";
-            this.providerDataGridViewTextBoxColumn.HeaderText = "provider";
-            this.providerDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.providerDataGridViewTextBoxColumn.Name = "providerDataGridViewTextBoxColumn";
-            this.providerDataGridViewTextBoxColumn.Width = 125;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 218);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 20);
+            this.label7.TabIndex = 47;
+            this.label7.Text = "Цена";
             // 
             // JournalWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1070, 523);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1113, 523);
+            this.Controls.Add(this.dgvJournal);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnReport);
             this.Controls.Add(this.btnEmployees);
             this.Controls.Add(this.btnProviders);
             this.Controls.Add(this.btnProducts);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnNextEntry);
-            this.Controls.Add(this.btnPreviousEntry);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "JournalWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал";
-            this.Load += new System.EventHandler(this.Journal_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.journalBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJournal)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -415,7 +496,6 @@
         private System.Windows.Forms.ComboBox cmbProduct;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.ComboBox cmbEmployee;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCount;
@@ -423,24 +503,31 @@
         private System.Windows.Forms.Button btnProducts;
         private System.Windows.Forms.Button btnProviders;
         private System.Windows.Forms.Button btnEmployees;
-        private System.Windows.Forms.Button btnPreviousEntry;
-        private System.Windows.Forms.Button btnNextEntry;
         private System.Windows.Forms.Button btnReport;
         private System.Windows.Forms.BindingSource productsBindingSource;
         private System.Windows.Forms.ComboBox cmbProvider;
         private System.Windows.Forms.BindingSource journalBindingSource;
         private System.Windows.Forms.BindingSource providerBindingSource;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn recordIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn providerIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DataGridView dgvJournal;
+        private System.Windows.Forms.BindingSource employeesBindingSource;
+        private System.Windows.Forms.DataGridViewComboBoxColumn employeeColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn productColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn providerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn purchasedateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn providerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ComboBox cmbZnak;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
+        private System.Windows.Forms.Button btnClearDate;
+        private System.Windows.Forms.BindingSource productsBindingSource1;
+        private System.Windows.Forms.BindingSource providerBindingSource1;
+        private System.Windows.Forms.BindingSource employeesBindingSource1;
+        private System.Windows.Forms.Button btnClearEndDate;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox txtPriceZnak;
+        private System.Windows.Forms.TextBox txtPrice;
+        private System.Windows.Forms.Label label7;
     }
 }

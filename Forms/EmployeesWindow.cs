@@ -1,9 +1,11 @@
 ﻿using BD_6.Forms.Reports;
+using BD_6.Source;
 using System;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BD_6
 {
@@ -11,44 +13,40 @@ namespace BD_6
     {
         private const int DGV_SCROLL_OFFSET = 5;
 
-        private ApplicationContext _context = new ApplicationContext();
-        private bool _isAscending = true;
+        private DbService<Employees> _db;
 
         public EmployeesWindow()
         {
             InitializeComponent();
         }
 
+        #region Инициализация и настройки
         private void EmployeesWindow_Load(object sender, EventArgs e)
         {
-            UpdateDgv();
-            this.departmentBindingSource.DataSource = _context.Departments.ToList();
-            this.departmentBindingSource1.DataSource = _context.Departments.ToList();
+            _db = new DbService<Employees>(this.employeesBindingSource);
+            this.departmentBindingSource.DataSource = (new DbService<Department>()).Table.Local.ToBindingList(); ;
+            this.departmentBindingSource1.DataSource = this.departmentBindingSource.DataSource;
 
             cmbDepartment.SelectedIndex = -1;
             dgvEmployees.Rows[0].Selected = true;
         }
 
-        private void dgvEmployees_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void SetDepartmentsDataSource()
         {
-            return;
+            this.departmentBindingSource.DataSource = (new DbService<Department>(departmentBindingSource)).Table.Local.ToBindingList();
+            this.departmentBindingSource1.DataSource = (new DbService<Department>(departmentBindingSource1)).Table.Local.ToBindingList();
         }
+        #endregion
 
         #region Сортировка и фильтрация
-        private void dgvEmployees_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var filteredData = CreateFilter().ToList();
-            this.employeesBindingSource.DataSource = filteredData;
+            _db.FilterData(CreateFilter());
         }
 
         private IQueryable<Employees> CreateFilter()
         {
-            IQueryable<Employees> query = _context.Employees.AsQueryable();
+            IQueryable<Employees> query = _db.Table.AsQueryable();
 
             if (!string.IsNullOrEmpty(txtName.Text))
             {
@@ -69,49 +67,16 @@ namespace BD_6
         }
         #endregion
 
-        #region Навигация
-        private void btnPreviousEntry_Click(object sender, EventArgs e)
-        {
-            int currentIndex = dgvEmployees.SelectedRows[0].Index;
-            if (currentIndex > 0)
-            {
-                SelectRow(currentIndex - 1);
-                btnNextEntry.Enabled = true;
-            }
-            else
-            {
-                btnPreviousEntry.Enabled = false;
-            }
-        }
-
-        private void btnNextEntry_Click(object sender, EventArgs e)
-        {
-            int currentIndex = dgvEmployees.SelectedRows[0].Index;
-            if (currentIndex < dgvEmployees.Rows.Count - 1)
-            {
-                SelectRow(currentIndex + 1);
-            }
-            else
-            {
-                btnNextEntry.Enabled = false;
-            }
-
-            btnPreviousEntry.Enabled = true;
-        }
-
-        private void SelectRow(int index)
-        {
-            dgvEmployees.ClearSelection();
-            dgvEmployees.Rows[index].Selected = true;
-            dgvEmployees.FirstDisplayedScrollingRowIndex = Math.Max(0, index - DGV_SCROLL_OFFSET);
-        }
-        #endregion
-
         #region Другие окна
         private void btnOpenDepartments_Click(object sender, EventArgs e)
         {
             DepartmentsWindow departmentsWindow = new DepartmentsWindow();
             departmentsWindow.ShowDialog(this);
+
+            SetDepartmentsDataSource();
+
+            cmbDepartment.SelectedIndex = -1;
+            dgvEmployees.Rows[0].Selected = true;
         }
 
         private void btnReference_Click(object sender, EventArgs e)
@@ -130,7 +95,7 @@ namespace BD_6
             string phone = txtPhone.Text;
             int? depId = (int?)cmbDepartment.SelectedValue;
 
-            if (name == "" || depId == null)
+            if (!isValidData())
             {
                 MessageBox.Show("Неккоретные данные!");
                 return;
@@ -143,12 +108,36 @@ namespace BD_6
                 phone_number = phone == "" ? null : phone
             };
 
-            _context.Employees.Add(newEmp);
-            _context.SaveChanges();
+            _db.Add(newEmp);
 
-            UpdateDgv();
-            SelectRow(dgvEmployees.Rows.Count - 1);
             ClearAddingFields();
+        }
+
+        private void dgvEmployees_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            _db.SaveChanges();
+        }
+
+        #region Удаление
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            dgvEmployees_UserDeletingRow(dgvEmployees
+                , new DataGridViewRowCancelEventArgs(dgvEmployees.CurrentRow));
+        }
+
+        private void dgvEmployees_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            e.Cancel = !_db.Remove(e.Row.Index);
+            this.Validate();
+        }
+        #endregion
+
+        #endregion
+
+        #region Вспомогательные
+        private bool isValidData()
+        {
+            return txtName.Text != "" && cmbDepartment.SelectedIndex != -1;
         }
 
         private void ClearAddingFields()
@@ -157,60 +146,6 @@ namespace BD_6
             txtPhone.Text = "";
             cmbDepartment.SelectedIndex = -1;
         }
-
-        private void UpdateDgv()
-        {
-            this.employeesBindingSource.DataSource = _context.Employees.ToList();
-            dgvEmployees.ResetBindings();
-        }
-
-        private void dgvEmployees_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            using (var context = new ApplicationContext())
-            {
-                int id = (int)dgvEmployees["clmnId", e.RowIndex].Value;
-                var employee = context.Employees.Find(id);
-                if (employee != null)
-                {
-                    var propertyName = dgvEmployees.Columns[e.ColumnIndex].DataPropertyName;
-                    typeof(Employees).GetProperty(propertyName)?
-                                     .SetValue(employee
-                                     , dgvEmployees.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-                }
-                context.SaveChanges();
-            }
-        }
-
-        #region Удаление
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            dgvEmployees_UserDeletingRow(dgvEmployees
-                , new DataGridViewRowCancelEventArgs(dgvEmployees.SelectedRows[0]));
-
-            UpdateDgv();
-            SelectRow(dgvEmployees.Rows.Count-1);
-        }
-
-        private void dgvEmployees_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
-        {
-            var dialogResult = MessageBox.Show("Вы уверены, что хотите удалить данные? Этот процесс необратим"
-                        , "Предупреждение!"
-                        , MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.No)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            int id = (int)dgvEmployees["clmnId", e.Row.Index].Value;
-            var employee = _context.Employees.Find(id);
-            _context.Employees.Remove(employee);
-            _context.SaveChanges();
-
-        }
         #endregion
-
-        #endregion
-
     }
 }

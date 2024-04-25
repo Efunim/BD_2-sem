@@ -27,16 +27,16 @@ namespace BD_6.Forms
                 _tableBindingSource = value;
             }
         }
-        public BindingList<T> DbTable;
+        //public BindingList DbTable;
 
         private BindingSource _tableBindingSource;
-        private BindingList<T> _dbTable;
+        //private BindingList _dbTable;
         private DbContext _dbContext;
 
         public TableControl()
         {
             InitializeComponent();
-            _dbContext = (DbContext)_dbTable.GetType().GetField("_context").GetValue(_dbTable);
+            //_dbContext = (DbContext)_dbTable.GetType().GetField("_context").GetValue(_dbTable);
         }
 
         #region Навигация
@@ -94,6 +94,16 @@ namespace BD_6.Forms
             this.Validate();
             _tableBindingSource.EndEdit();
             _dbContext.SaveChanges();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPreviousEntry_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
