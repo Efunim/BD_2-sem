@@ -13,8 +13,6 @@ namespace BD_6
 {
     public partial class ProductsWindow : Form
     {
-        private const int DGV_SCROLL_OFFSET = 5;
-
         private DbService<Products> _db;
 
         public ProductsWindow()
@@ -23,25 +21,15 @@ namespace BD_6
             cmbZnak.SelectedIndex = 0;
         }
 
-        private void productsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-
-        }
-
+        #region Инициализация и настройка
         private void ProductsWindow_Load(object sender, EventArgs e)
         {
             _db = new DbService<Products>(this.productsBindingSource);
         }
+        #endregion
 
-        private void btnPreviousEntry_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnNextEntry_Click(object sender, EventArgs e)
-        {
-        }
-
+        #region Изменение таблицы
+        #region Удаление
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dgvProducts_UserDeletingRow(null,
@@ -53,10 +41,11 @@ namespace BD_6
             e.Cancel = !_db.Remove(e.Row.Index);
             this.Validate();
         }
+        #endregion
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if(!isValidData())
+            if (!isValidData())
             {
                 MessageBox.Show("Некорректные данные!");
                 return;
@@ -68,12 +57,14 @@ namespace BD_6
                 price = int.Parse(txtPrice.Text)
             });
         }
-
-        private bool isValidData()
+        private void dgvProducts_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            return txtName.Text != "" && int.TryParse(txtPrice.Text, out _);
+            _db.SaveChanges();
         }
 
+        #endregion
+
+        #region Фильтрация
         private void btnSearch_Click(object sender, EventArgs e)
         {
             _db.FilterData(CreateFilter());
@@ -89,10 +80,10 @@ namespace BD_6
                 query = query.Where(x => x.name.Contains(txtName.Text));
             }
 
-            if(!string.IsNullOrEmpty(txtPrice.Text))
+            if (!string.IsNullOrEmpty(txtPrice.Text))
             {
                 int price = int.Parse(txtPrice.Text);
-                switch(cmbZnak.SelectedItem)
+                switch (cmbZnak.SelectedItem)
                 {
                     case "=":
                         query = query.Where(x => x.price == price);
@@ -108,11 +99,13 @@ namespace BD_6
 
             return query;
         }
+        #endregion
 
-        private void dgvProducts_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        #region Вспомогательные
+        private bool isValidData()
         {
-            _db.SaveChanges();
+            return txtName.Text != "" && int.TryParse(txtPrice.Text, out _);
         }
-
+        #endregion
     }
 }

@@ -105,7 +105,7 @@
     <Compile Include="Source\NavigationButtons.Designer.cs">
       <DependentUpon>NavigationButtons.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\DbService.cs" />
+    <Compile Include="Source\Db\DbService.cs" />
     <Compile Include="Source\TableControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,7 +121,7 @@
     <Compile Include="Provider.cs">
       <DependentUpon>Shop.tt</DependentUpon>
     </Compile>
-    <Compile Include="Source\DbContext\ApplicationContext.cs" />
+    <Compile Include="Source\Db\ApplicationContext.cs" />
     <Compile Include="Forms\Reports\DepartmentReportWindow.cs">
       <SubType>Form</SubType>
     </Compile>

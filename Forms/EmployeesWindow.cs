@@ -11,8 +11,6 @@ namespace BD_6
 {
     public partial class EmployeesWindow : Form
     {
-        private const int DGV_SCROLL_OFFSET = 5;
-
         private DbService<Employees> _db;
 
         public EmployeesWindow()
@@ -67,26 +65,6 @@ namespace BD_6
         }
         #endregion
 
-        #region Другие окна
-        private void btnOpenDepartments_Click(object sender, EventArgs e)
-        {
-            DepartmentsWindow departmentsWindow = new DepartmentsWindow();
-            departmentsWindow.ShowDialog(this);
-
-            SetDepartmentsDataSource();
-
-            cmbDepartment.SelectedIndex = -1;
-            dgvEmployees.Rows[0].Selected = true;
-        }
-
-        private void btnReference_Click(object sender, EventArgs e)
-        {
-            ReferenceWindow referenceWindow = new ReferenceWindow();
-            referenceWindow.EmpName = dgvEmployees["txtFullName", dgvEmployees.CurrentCell.RowIndex].Value.ToString();
-            referenceWindow.ShowDialog(this);
-        }
-        #endregion
-
         #region Изменение таблицы
 
         private void btnAddRecord_Click(object sender, EventArgs e)
@@ -132,6 +110,26 @@ namespace BD_6
         }
         #endregion
 
+        #endregion
+
+        #region Другие окна
+        private void btnOpenDepartments_Click(object sender, EventArgs e)
+        {
+            DepartmentsWindow departmentsWindow = new DepartmentsWindow();
+            departmentsWindow.ShowDialog(this);
+
+            SetDepartmentsDataSource();
+
+            cmbDepartment.SelectedIndex = -1;
+            dgvEmployees.Rows[0].Selected = true;
+        }
+
+        private void btnReference_Click(object sender, EventArgs e)
+        {
+            ReferenceWindow referenceWindow = new ReferenceWindow();
+            referenceWindow.EmpName = dgvEmployees["txtFullName", dgvEmployees.CurrentCell.RowIndex].Value.ToString();
+            referenceWindow.ShowDialog(this);
+        }
         #endregion
 
         #region Вспомогательные

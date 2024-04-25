@@ -23,8 +23,11 @@ namespace BD_6.Forms
         {
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "shopDataSet";
-            reportDataSource.Value = MainMenu.Context.Departments.ToList();
-            reportViewer1.LocalReport.DataSources.Add(reportDataSource);
+            using(ApplicationContext  context = new ApplicationContext())
+            {
+                reportDataSource.Value = context.Departments.ToList();
+                reportViewer1.LocalReport.DataSources.Add(reportDataSource);
+            }
 
             this.reportViewer1.RefreshReport();
         }

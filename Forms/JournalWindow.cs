@@ -12,6 +12,7 @@ namespace BD_6
     {
         private DbService<Journal> _db;
 
+        #region Инициализация и настройки
         public JournalWindow()
         {
             InitializeComponent();
@@ -28,7 +29,8 @@ namespace BD_6
             SetProviderDataSource();
             SetEmployeeDataSource();
 
-            cmbZnak.SelectedIndex = 0;
+            cmbCountZnak.SelectedIndex = 0;
+            cmbPriceZnak.SelectedIndex = 0;
             dtpStartDate.CustomFormat = " ";
             dtpEndDate.CustomFormat = " ";
 
@@ -56,17 +58,9 @@ namespace BD_6
                 .Table.Local.ToBindingList();
             cmbEmployee.SelectedIndex = -1;
         }
-
-        #region Навигация
-        private void btnPreviousEntry_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnNextEntry_Click(object sender, EventArgs e)
-        {
-        }
         #endregion
 
+        #region Изменение таблицы
         #region Удаление
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -98,24 +92,17 @@ namespace BD_6
                                 ? (DateTime?)null
                                 : dtpStartDate.Value,
                 count = int.Parse(txtCount.Text),
-
+                current_price = int.Parse(txtPrice.Text)
             });
 
             this.Validate();
-        }
-
-        private bool isValidData()
-        {
-            return cmbEmployee.SelectedIndex > -1
-                && cmbProduct.SelectedIndex > -1
-                && cmbProvider.SelectedIndex > -1
-                && txtCount.Text != "";
         }
 
         private void dgvJournal_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             _db.SaveChanges();
         }
+        #endregion
 
         #region DateTimePickers
         private void dateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -217,7 +204,7 @@ namespace BD_6
             if (txtCount.Text != "")
             {
                 int count = int.Parse(txtCount.Text);
-                switch (cmbZnak.SelectedItem)
+                switch (cmbCountZnak.SelectedItem)
                 {
                     case "=":
                         query = query.Where(x => x.count == count);
@@ -237,7 +224,50 @@ namespace BD_6
                 }
             }
 
+            if (txtPrice.Text != "")
+            {
+                int price = int.Parse(txtPrice.Text);
+                switch (cmbPriceZnak.SelectedItem)
+                {
+                    case "=":
+                        query = query.Where(x => x.current_price == price);
+                        break;
+                    case ">=":
+                        query = query.Where(x => x.current_price >= price);
+                        break;
+                    case "<=":
+                        query = query.Where(x => x.current_price <= price);
+                        break;
+                    case "<":
+                        query = query.Where(x => x.current_price < price);
+                        break;
+                    case ">":
+                        query = query.Where(x => x.current_price > price);
+                        break;
+                }
+            }
+
             return query;
         }
+
+        private void cmbProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProduct.SelectedIndex == -1)
+            {
+                txtPrice.Text = "";
+                return;
+            }
+            txtPrice.Text = ((Products)cmbProduct.SelectedItem).price.ToString();
+        }
+
+        private bool isValidData()
+        {
+            return cmbEmployee.SelectedIndex > -1
+                && cmbProduct.SelectedIndex > -1
+                && cmbProvider.SelectedIndex > -1
+                && txtCount.Text != ""
+                && txtPrice.Text != "";
+        }
+
     }
 }

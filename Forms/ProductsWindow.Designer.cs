@@ -78,7 +78,6 @@
             this.btnNextEntry.TabIndex = 26;
             this.btnNextEntry.Text = "-->";
             this.btnNextEntry.UseVisualStyleBackColor = true;
-            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click);
             // 
             // btnPreviousEntry
             // 
@@ -88,7 +87,6 @@
             this.btnPreviousEntry.TabIndex = 24;
             this.btnPreviousEntry.Text = "<--";
             this.btnPreviousEntry.UseVisualStyleBackColor = true;
-            this.btnPreviousEntry.Click += new System.EventHandler(this.btnPreviousEntry_Click);
             // 
             // label1
             // 

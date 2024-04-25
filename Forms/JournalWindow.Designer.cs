@@ -52,12 +52,15 @@
             this.providerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.providerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbPriceZnak = new System.Windows.Forms.ComboBox();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnClearEndDate = new System.Windows.Forms.Button();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.btnClearDate = new System.Windows.Forms.Button();
-            this.cmbZnak = new System.Windows.Forms.ComboBox();
+            this.cmbCountZnak = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvJournal = new System.Windows.Forms.DataGridView();
             this.employeeColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -65,9 +68,7 @@
             this.providerColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.purchasedateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtPriceZnak = new System.Windows.Forms.ComboBox();
-            this.txtPrice = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.current_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.journalBindingSource)).BeginInit();
@@ -91,7 +92,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(952, 483);
+            this.btnDelete.Location = new System.Drawing.Point(1110, 483);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(149, 28);
             this.btnDelete.TabIndex = 19;
@@ -118,6 +119,7 @@
             this.cmbProduct.Size = new System.Drawing.Size(231, 28);
             this.cmbProduct.TabIndex = 25;
             this.cmbProduct.ValueMember = "productID";
+            this.cmbProduct.SelectedIndexChanged += new System.EventHandler(this.cmbProduct_SelectedIndexChanged);
             // 
             // productsBindingSource1
             // 
@@ -195,7 +197,7 @@
             // 
             // btnProducts
             // 
-            this.btnProducts.Location = new System.Drawing.Point(791, 12);
+            this.btnProducts.Location = new System.Drawing.Point(949, 12);
             this.btnProducts.Name = "btnProducts";
             this.btnProducts.Size = new System.Drawing.Size(149, 28);
             this.btnProducts.TabIndex = 34;
@@ -205,7 +207,7 @@
             // 
             // btnProviders
             // 
-            this.btnProviders.Location = new System.Drawing.Point(791, 49);
+            this.btnProviders.Location = new System.Drawing.Point(949, 49);
             this.btnProviders.Name = "btnProviders";
             this.btnProviders.Size = new System.Drawing.Size(149, 28);
             this.btnProviders.TabIndex = 35;
@@ -215,7 +217,7 @@
             // 
             // btnEmployees
             // 
-            this.btnEmployees.Location = new System.Drawing.Point(952, 12);
+            this.btnEmployees.Location = new System.Drawing.Point(1110, 12);
             this.btnEmployees.Name = "btnEmployees";
             this.btnEmployees.Size = new System.Drawing.Size(149, 28);
             this.btnEmployees.TabIndex = 36;
@@ -225,7 +227,7 @@
             // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(952, 49);
+            this.btnReport.Location = new System.Drawing.Point(1110, 49);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(149, 28);
             this.btnReport.TabIndex = 37;
@@ -253,7 +255,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtPriceZnak);
+            this.groupBox1.Controls.Add(this.cmbPriceZnak);
             this.groupBox1.Controls.Add(this.txtPrice);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.btnClearEndDate);
@@ -261,7 +263,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.dtpStartDate);
             this.groupBox1.Controls.Add(this.btnClearDate);
-            this.groupBox1.Controls.Add(this.cmbZnak);
+            this.groupBox1.Controls.Add(this.cmbCountZnak);
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.cmbProduct);
             this.groupBox1.Controls.Add(this.label1);
@@ -273,18 +275,48 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cmbEmployee);
-            this.groupBox1.Location = new System.Drawing.Point(791, 83);
+            this.groupBox1.Location = new System.Drawing.Point(949, 83);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(310, 336);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавить запись";
             // 
+            // cmbPriceZnak
+            // 
+            this.cmbPriceZnak.FormattingEnabled = true;
+            this.cmbPriceZnak.Items.AddRange(new object[] {
+            "=",
+            "<=",
+            ">=",
+            "<",
+            ">"});
+            this.cmbPriceZnak.Location = new System.Drawing.Point(256, 214);
+            this.cmbPriceZnak.Name = "cmbPriceZnak";
+            this.cmbPriceZnak.Size = new System.Drawing.Size(48, 28);
+            this.cmbPriceZnak.TabIndex = 49;
+            // 
+            // txtPrice
+            // 
+            this.txtPrice.Location = new System.Drawing.Point(64, 215);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(186, 27);
+            this.txtPrice.TabIndex = 48;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 218);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 20);
+            this.label7.TabIndex = 47;
+            this.label7.Text = "Цена";
+            // 
             // btnClearEndDate
             // 
-            this.btnClearEndDate.Location = new System.Drawing.Point(277, 141);
+            this.btnClearEndDate.Location = new System.Drawing.Point(277, 140);
             this.btnClearEndDate.Name = "btnClearEndDate";
-            this.btnClearEndDate.Size = new System.Drawing.Size(25, 29);
+            this.btnClearEndDate.Size = new System.Drawing.Size(25, 27);
             this.btnClearEndDate.TabIndex = 46;
             this.btnClearEndDate.Text = "X";
             this.btnClearEndDate.UseVisualStyleBackColor = true;
@@ -321,27 +353,27 @@
             // 
             // btnClearDate
             // 
-            this.btnClearDate.Location = new System.Drawing.Point(277, 102);
+            this.btnClearDate.Location = new System.Drawing.Point(277, 101);
             this.btnClearDate.Name = "btnClearDate";
-            this.btnClearDate.Size = new System.Drawing.Size(25, 29);
+            this.btnClearDate.Size = new System.Drawing.Size(25, 27);
             this.btnClearDate.TabIndex = 42;
             this.btnClearDate.Text = "X";
             this.btnClearDate.UseVisualStyleBackColor = true;
             this.btnClearDate.Click += new System.EventHandler(this.btnClearDate_Click);
             // 
-            // cmbZnak
+            // cmbCountZnak
             // 
-            this.cmbZnak.FormattingEnabled = true;
-            this.cmbZnak.Items.AddRange(new object[] {
+            this.cmbCountZnak.FormattingEnabled = true;
+            this.cmbCountZnak.Items.AddRange(new object[] {
             "=",
             "<=",
             ">=",
             "<",
             ">"});
-            this.cmbZnak.Location = new System.Drawing.Point(256, 181);
-            this.cmbZnak.Name = "cmbZnak";
-            this.cmbZnak.Size = new System.Drawing.Size(48, 28);
-            this.cmbZnak.TabIndex = 40;
+            this.cmbCountZnak.Location = new System.Drawing.Point(256, 181);
+            this.cmbCountZnak.Name = "cmbCountZnak";
+            this.cmbCountZnak.Size = new System.Drawing.Size(48, 28);
+            this.cmbCountZnak.TabIndex = 40;
             // 
             // btnSearch
             // 
@@ -363,13 +395,14 @@
             this.productColumn,
             this.providerColumn,
             this.purchasedateDataGridViewTextBoxColumn,
-            this.countDataGridViewTextBoxColumn});
+            this.countDataGridViewTextBoxColumn,
+            this.current_price});
             this.dgvJournal.DataSource = this.journalBindingSource;
             this.dgvJournal.Location = new System.Drawing.Point(13, 12);
             this.dgvJournal.Name = "dgvJournal";
             this.dgvJournal.RowHeadersWidth = 51;
             this.dgvJournal.RowTemplate.Height = 24;
-            this.dgvJournal.Size = new System.Drawing.Size(772, 499);
+            this.dgvJournal.Size = new System.Drawing.Size(930, 499);
             this.dgvJournal.TabIndex = 40;
             this.dgvJournal.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJournal_CellEndEdit);
             this.dgvJournal.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvJournal_UserDeletingRow);
@@ -428,41 +461,19 @@
             this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
             this.countDataGridViewTextBoxColumn.Width = 125;
             // 
-            // txtPriceZnak
+            // current_price
             // 
-            this.txtPriceZnak.FormattingEnabled = true;
-            this.txtPriceZnak.Items.AddRange(new object[] {
-            "=",
-            "<=",
-            ">=",
-            "<",
-            ">"});
-            this.txtPriceZnak.Location = new System.Drawing.Point(256, 214);
-            this.txtPriceZnak.Name = "txtPriceZnak";
-            this.txtPriceZnak.Size = new System.Drawing.Size(48, 28);
-            this.txtPriceZnak.TabIndex = 49;
-            // 
-            // txtPrice
-            // 
-            this.txtPrice.Location = new System.Drawing.Point(64, 215);
-            this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(186, 27);
-            this.txtPrice.TabIndex = 48;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 218);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 20);
-            this.label7.TabIndex = 47;
-            this.label7.Text = "Цена";
+            this.current_price.DataPropertyName = "current_price";
+            this.current_price.HeaderText = "Цена за ед.";
+            this.current_price.MinimumWidth = 6;
+            this.current_price.Name = "current_price";
+            this.current_price.Width = 125;
             // 
             // JournalWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1113, 523);
+            this.ClientSize = new System.Drawing.Size(1268, 523);
             this.Controls.Add(this.dgvJournal);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnReport);
@@ -512,12 +523,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvJournal;
         private System.Windows.Forms.BindingSource employeesBindingSource;
-        private System.Windows.Forms.DataGridViewComboBoxColumn employeeColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn productColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn providerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn purchasedateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ComboBox cmbZnak;
+        private System.Windows.Forms.ComboBox cmbCountZnak;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.Button btnClearDate;
         private System.Windows.Forms.BindingSource productsBindingSource1;
@@ -526,8 +532,14 @@
         private System.Windows.Forms.Button btnClearEndDate;
         private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox txtPriceZnak;
+        private System.Windows.Forms.ComboBox cmbPriceZnak;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridViewComboBoxColumn employeeColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn productColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn providerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn purchasedateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn current_price;
     }
 }

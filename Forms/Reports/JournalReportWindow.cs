@@ -5,23 +5,30 @@ using System.Data;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 
 namespace BD_6.Forms.Reports
 {
     public partial class JournalReportWindow : Form
     {
+        private ApplicationContext _context = new ApplicationContext();
+
         public JournalReportWindow()
         {
             InitializeComponent();
-            MainMenu.Context.Employees.Load();
-            MainMenu.Context.Providers.Load();
+            _context.Employees.Load();
+            _context.Providers.Load();
+            _context.Products.Load();
 
-            this.providerBindingSource.DataSource = MainMenu.Context.Providers.ToList();
-            this.employeesBindingSource.DataSource = MainMenu.Context.Employees.ToList();
+            this.providerBindingSource.DataSource = _context.Providers.Local.ToBindingList();
+            this.employeesBindingSource.DataSource = _context.Employees.Local.ToBindingList();
+            this.productsBindingSource.DataSource = _context.Products.Local.ToBindingList();
             
             cmbEmployee.SelectedIndex = -1;
             cmbProvider.SelectedIndex = -1;
+            cmbProduct.SelectedIndex = -1;
 
             dtpStart.CustomFormat = " ";
             dtpStart.Format = DateTimePickerFormat.Custom;
@@ -33,103 +40,71 @@ namespace BD_6.Forms.Reports
         {
             InitializeDataSource();
 
-            this.reportViewer1.RefreshReport();
+            this.reportViewer.RefreshReport();
         }
 
         private void InitializeDataSource()
         {
-            DataView dv = CreateView(null);
-
             ReportDataSource reportDataSource1 = new ReportDataSource();
             reportDataSource1.Name = "shopDataSet";
-            reportDataSource1.Value = dv;
-            
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-        }
+            reportDataSource1.Value = GetFormattedTable(_context.Journals);
 
-        private DataView CreateView(IQueryable<Journal> filter)
-        {
-            DataView dataView = new DataView();
-            List<Journal> journals = filter == null 
-                ? MainMenu.Context.Journals.ToList()
-                : filter.ToList();
-
-            DataTable dt = MainMenu.ToDataTable(journals);
-            dt.Columns["productID"].DataType = typeof(string);
-            dt.Columns["employeeID"].DataType = typeof(string);
-            dt.Columns["providerID"].DataType = typeof(string);
-
-            dataView.Table = dt;
-
-            for (int i = 0; i < dataView.Table.Rows.Count; i++)
-            {
-                int employee = Convert.ToInt32(dataView.Table.Rows[i]["employeeID"]);
-                int product = Convert.ToInt32(dataView.Table.Rows[i]["productID"]);
-                int provider = Convert.ToInt32(dataView.Table.Rows[i]["providerID"]);
-                dataView.Table.Rows[i]["employeeID"] = MainMenu.Context.Employees
-                                                  .Where(e => e.employeeID == employee)
-                                                  .Select(e => e.full_name)
-                                                  .FirstOrDefault();
-
-                dataView.Table.Rows[i]["productID"] = MainMenu.Context.Products
-                                                  .Where(p => p.productID == product)
-                                                  .Select(p => p.name)
-                                                  .FirstOrDefault();
-
-                dataView.Table.Rows[i]["providerID"] = MainMenu.Context.Providers
-                                                  .Where(p => p.providerID == provider)
-                                                  .Select(p => p.name)
-                                                  .FirstOrDefault();
-            }
-
-            return dataView;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            string dateStart = dtpStart.Format != DateTimePickerFormat.Custom
-                               ? dtpStart.Value.ToShortDateString()
-                               : null;
-            string dateEnd = dtpEnd.Format != DateTimePickerFormat.Custom
-                               ? dtpEnd.Value.ToShortDateString()
-                               : null;
-
-            int? employeeID = cmbEmployee.SelectedValue as int?;
-            int? providerID = cmbProvider.SelectedValue as int?;
-
-            var filter = CreateFilter(dateStart, dateEnd, providerID, employeeID);
-            reportViewer1.LocalReport.DataSources[0].Value = CreateView(filter as IQueryable<Journal>);
-            reportViewer1.RefreshReport();
+            var filter = CreateFilter();
+            reportViewer.LocalReport.DataSources[0].Value = GetFormattedTable(filter).ToList();
+            reportViewer.RefreshReport();
         }
 
-        private IQueryable CreateFilter(string dateStart, string dateEnd, int? provider, int? employee)
+        private IEnumerable<dynamic> GetFormattedTable(IQueryable<Journal> list)
         {
-            IQueryable<Journal> query = MainMenu.Context.Journals.AsQueryable();
-
-            if (!string.IsNullOrEmpty(dateStart))
+            return list.Select(j => new
             {
-                DateTime startDate = DateTime.Parse(dateStart);
-                query = query.Where(j => j.purchase_date >= startDate);
+                employeeID = j.employees.full_name,
+                productID = j.products.name,
+                providerID = j.provider.name,
+                j.purchase_date,
+                j.count,
+                j.current_price
+            });
+        }
+
+        private IQueryable<Journal> CreateFilter()
+        {
+            IQueryable<Journal> query = _context.Journals.AsQueryable();
+
+            if (dtpStart.Format != DateTimePickerFormat.Custom)
+            {
+                query = query.Where(j => j.purchase_date >= dtpStart.Value);
             }
 
-            if (!string.IsNullOrEmpty(dateEnd))
+            if (dtpEnd.Format != DateTimePickerFormat.Custom)
             {
-                DateTime endDate = DateTime.Parse(dateEnd);
-                query = query.Where(j => j.purchase_date <= endDate);
+                query = query.Where(j => j.purchase_date <= dtpEnd.Value);
             }
 
-            if (employee != null && employee != 0)
+            if (cmbEmployee.SelectedValue != null)
             {
-                query = query.Where(j => j.employeeID == employee);
+                query = query.Where(j => j.employeeID == (int)cmbEmployee.SelectedValue);
             }
 
-            if (provider != null && provider != 0)
+            if (cmbProvider.SelectedValue != null)
             {
-                query = query.Where(j => j.providerID == provider);
+                query = query.Where(j => j.providerID == (int)cmbProvider.SelectedValue);
+            }
+
+            if(cmbProduct.SelectedValue != null)
+            {
+                query = query.Where(j => j.productID == (int)cmbProduct.SelectedValue);
             }
 
             return query;
         }
+
+        #region DateTimePickers
 
         private void dateTimePicker_ValueChanged(object sender, EventArgs e)
         {
@@ -150,6 +125,13 @@ namespace BD_6.Forms.Reports
         private void ClearDate(DateTimePicker datePicker)
         {
             datePicker.Format = DateTimePickerFormat.Custom;
+        }
+
+        #endregion
+
+        private void JournalReportWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _context.Dispose();
         }
     }
 }
