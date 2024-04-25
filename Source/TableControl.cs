@@ -27,16 +27,14 @@ namespace BD_6.Forms
                 _tableBindingSource = value;
             }
         }
-        //public BindingList DbTable;
 
-        private BindingSource _tableBindingSource;
-        //private BindingList _dbTable;
+private BindingSource _tableBindingSource;
+
         private DbContext _dbContext;
 
         public TableControl()
         {
             InitializeComponent();
-            //_dbContext = (DbContext)_dbTable.GetType().GetField("_context").GetValue(_dbTable);
         }
 
         #region Навигация
