@@ -1,13 +1,9 @@
 ﻿using BD_6.Forms;
+using BD_6.Source;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BD_6
@@ -15,24 +11,18 @@ namespace BD_6
     public partial class DepartmentsWindow : Form
     {
         private const int DGV_SCROLL_OFFSET = 5;
-        private ApplicationContext _context = new ApplicationContext();
+
+        private DbService<Department> _db;
 
         public DepartmentsWindow()
         {
             InitializeComponent();
-        }
-
-        private void departmentBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-
+            _db = new DbService<Department>(this.departmentBindingSource);
         }
 
         private void DepartmentsWindow_Load(object sender, EventArgs e)
         {
-            _context.Configuration.ProxyCreationEnabled = false;
-            _context.Departments.Load();
-            this.departmentBindingSource.DataSource = _context.Departments.Local.ToBindingList();
+
         }
 
         #region Навигация
@@ -79,48 +69,36 @@ namespace BD_6
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dgvDepartments_UserDeletingRow(null,
-                new DataGridViewRowCancelEventArgs(dgvDepartments.SelectedRows[0]));
+                new DataGridViewRowCancelEventArgs(dgvDepartments.CurrentRow));
         }
 
         private void dgvDepartments_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            var dialogResult = MessageBox.Show("Вы уверены, что хотите удалить данные? Этот процесс необратим"
-            , "Предупреждение!"
-            , MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.No)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            this.departmentBindingSource.RemoveAt(e.Row.Index);
-            ValidateBinding();
+            e.Cancel = !_db.Remove(e.Row.Index);
+            this.Validate();
         }
         #endregion
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if(txtName.Text == "")
+            if (!isValidData())
             {
-                MessageBox.Show("Имя не может быть пустым!");
+                MessageBox.Show("Некорректные данные!");
                 return;
             }
 
-            this.departmentBindingSource.DataSource = _context.Departments.Local.ToBindingList();
-            _context.Departments.Add(new Department() { name = txtName.Text });
-            ValidateBinding();
+            _db.Add(new Department() { name = txtName.Text });
+            this.Validate();
+        }
+
+        private bool isValidData()
+        {
+            return txtName.Text != "";
         }
 
         private void dgvDepartments_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            ValidateBinding();
-        }
-
-        private void ValidateBinding()
-        {
-            this.Validate();
-            this.departmentBindingSource.EndEdit();
-            _context.SaveChanges();
+            _db.SaveChanges();
         }
 
         #endregion
@@ -133,21 +111,26 @@ namespace BD_6
 
         private void DepartmentsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _context.Dispose();
+            _db.Dispose();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var filteredData = _context.Departments.Local.ToBindingList()
-                .Where(x => x.name.Contains(txtName.Text));
-
-            this.departmentBindingSource.DataSource = filteredData.Count() > 0 ?
-                filteredData : filteredData.ToArray();
+            _db.FilterData(CreateFilter());
+            this.Validate();
         }
 
-        private void btnNextEntry_Click_1(object sender, EventArgs e)
+        private IQueryable<Department> CreateFilter()
         {
+            IQueryable<Department> query = _db.Table.AsQueryable();
 
+            if (!string.IsNullOrEmpty(txtName.Text))
+            {
+                query = query.Where(x => x.name.Contains(txtName.Text));
+            }
+
+            return query;
         }
+
     }
 }

@@ -20,6 +20,7 @@ namespace BD_6
         public Nullable<System.DateTime> purchase_date { get; set; }
         public int count { get; set; }
         public int employeeID { get; set; }
+        public Nullable<int> current_price { get; set; }
     
         public virtual Employees employees { get; set; }
         public virtual Products products { get; set; }
