@@ -48,6 +48,9 @@
             this.cmbProduct = new System.Windows.Forms.ComboBox();
             this.productsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtCount = new System.Windows.Forms.TextBox();
+            this.cmbZnak = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.providerBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -122,7 +125,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(7, 300);
+            this.btnAccept.Location = new System.Drawing.Point(7, 347);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(4);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(186, 28);
@@ -195,6 +198,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbZnak);
+            this.groupBox1.Controls.Add(this.txtCount);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.cmbProduct);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
@@ -210,7 +216,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(742, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 335);
+            this.groupBox1.Size = new System.Drawing.Size(200, 384);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             // 
@@ -239,6 +245,36 @@
             this.label1.Size = new System.Drawing.Size(59, 20);
             this.label1.TabIndex = 25;
             this.label1.Text = "Товар";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(5, 290);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(131, 20);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Кол-во товара";
+            // 
+            // txtCount
+            // 
+            this.txtCount.Location = new System.Drawing.Point(7, 313);
+            this.txtCount.Name = "txtCount";
+            this.txtCount.Size = new System.Drawing.Size(134, 27);
+            this.txtCount.TabIndex = 28;
+            // 
+            // cmbZnak
+            // 
+            this.cmbZnak.FormattingEnabled = true;
+            this.cmbZnak.Items.AddRange(new object[] {
+            "=",
+            "<",
+            ">",
+            "<=",
+            ">="});
+            this.cmbZnak.Location = new System.Drawing.Point(147, 312);
+            this.cmbZnak.Name = "cmbZnak";
+            this.cmbZnak.Size = new System.Drawing.Size(46, 28);
+            this.cmbZnak.TabIndex = 29;
             // 
             // JournalReportWindow
             // 
@@ -283,5 +319,8 @@
         private System.Windows.Forms.ComboBox cmbProduct;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.BindingSource productsBindingSource;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbZnak;
+        private System.Windows.Forms.TextBox txtCount;
     }
 }

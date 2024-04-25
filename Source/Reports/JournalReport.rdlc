@@ -518,7 +518,7 @@
                               <Value>=Fields!count.Value</Value>
                               <Style>
                                 <FontWeight>Normal</FontWeight>
-                                <Format>0.0;(0.0)</Format>
+                                <Format>0;(0)</Format>
                                 <Color>#333333</Color>
                               </Style>
                             </TextRun>

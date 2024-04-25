@@ -29,6 +29,7 @@ namespace BD_6.Forms.Reports
             cmbEmployee.SelectedIndex = -1;
             cmbProvider.SelectedIndex = -1;
             cmbProduct.SelectedIndex = -1;
+            cmbZnak.SelectedIndex = 0;
 
             dtpStart.CustomFormat = " ";
             dtpStart.Format = DateTimePickerFormat.Custom;
@@ -99,6 +100,29 @@ namespace BD_6.Forms.Reports
             if(cmbProduct.SelectedValue != null)
             {
                 query = query.Where(j => j.productID == (int)cmbProduct.SelectedValue);
+            }
+
+            if(txtCount.Text != "")
+            {
+                int count = int.Parse(txtCount.Text);
+                switch (cmbZnak.SelectedItem)
+                {
+                    case "=":
+                        query = query.Where(x => x.count == count);
+                        break;
+                    case ">=":
+                        query = query.Where(x => x.count >= count);
+                        break;
+                    case "<=":
+                        query = query.Where(x => x.count <= count);
+                        break;
+                    case "<":
+                        query = query.Where(x => x.count < count);
+                        break;
+                    case ">":
+                        query = query.Where(x => x.count > count);
+                        break;
+                }
             }
 
             return query;
