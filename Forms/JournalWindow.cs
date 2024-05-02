@@ -101,6 +101,11 @@ namespace BD_6
         private void dgvJournal_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             _db.SaveChanges();
+            if (e.ColumnIndex == dgvJournal.Columns["clmCount"].Index
+               || e.ColumnIndex == dgvJournal.Columns["current_price"].Index)
+            {
+                CountTotalItemPrice(e.ColumnIndex, e.RowIndex);
+            }
         }
         #endregion
 
@@ -269,5 +274,17 @@ namespace BD_6
                 && txtPrice.Text != "";
         }
 
+        private void dgvJournal_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == dgvJournal.Columns.Count - 1)
+                CountTotalItemPrice(e.ColumnIndex, e.RowIndex);
+        }
+
+        private void CountTotalItemPrice(int columnIndex, int rowIndex)
+        {
+            dgvJournal["clmTotalItemPrice", rowIndex].Value = Convert.ToInt32(
+                (int)dgvJournal["clmCount", rowIndex].Value
+                * (int)dgvJournal["current_price", rowIndex].Value);
+        }
     }
 }

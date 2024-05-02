@@ -48,8 +48,6 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnNextEntry = new System.Windows.Forms.Button();
-            this.btnPreviousEntry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -133,7 +131,7 @@
             // 
             this.btnDelete.Location = new System.Drawing.Point(309, 211);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(154, 29);
+            this.btnDelete.Size = new System.Drawing.Size(174, 29);
             this.btnDelete.TabIndex = 19;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -178,27 +176,6 @@
             // 
             this.departmentBindingSource.DataSource = typeof(BD_6.Department);
             // 
-            // btnNextEntry
-            // 
-            this.btnNextEntry.Location = new System.Drawing.Point(405, 139);
-            this.btnNextEntry.Name = "btnNextEntry";
-            this.btnNextEntry.Size = new System.Drawing.Size(58, 29);
-            this.btnNextEntry.TabIndex = 26;
-            this.btnNextEntry.Text = "-->";
-            this.btnNextEntry.UseVisualStyleBackColor = true;
-            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click);
-            // 
-            // btnPreviousEntry
-            // 
-            this.btnPreviousEntry.Enabled = false;
-            this.btnPreviousEntry.Location = new System.Drawing.Point(309, 139);
-            this.btnPreviousEntry.Name = "btnPreviousEntry";
-            this.btnPreviousEntry.Size = new System.Drawing.Size(54, 29);
-            this.btnPreviousEntry.TabIndex = 25;
-            this.btnPreviousEntry.Text = "<--";
-            this.btnPreviousEntry.UseVisualStyleBackColor = true;
-            this.btnPreviousEntry.Click += new System.EventHandler(this.btnPreviousEntry_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -212,14 +189,14 @@
             // 
             this.txtName.Location = new System.Drawing.Point(309, 36);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(154, 27);
+            this.txtName.Size = new System.Drawing.Size(174, 27);
             this.txtName.TabIndex = 28;
             // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(309, 104);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(154, 29);
+            this.btnSearch.Size = new System.Drawing.Size(174, 29);
             this.btnSearch.TabIndex = 29;
             this.btnSearch.Text = "Искать";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -229,7 +206,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(309, 69);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(154, 29);
+            this.btnAdd.Size = new System.Drawing.Size(174, 29);
             this.btnAdd.TabIndex = 30;
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -239,13 +216,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 253);
+            this.ClientSize = new System.Drawing.Size(491, 253);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnNextEntry);
-            this.Controls.Add(this.btnPreviousEntry);
             this.Controls.Add(this.dgvDepartments);
             this.Controls.Add(this.btnDelete);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -283,8 +258,6 @@
         private System.Windows.Forms.BindingSource departmentBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.Button btnNextEntry;
-        private System.Windows.Forms.Button btnPreviousEntry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnSearch;

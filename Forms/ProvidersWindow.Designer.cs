@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnNextEntry = new System.Windows.Forms.Button();
-            this.btnPreviousEntry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
@@ -68,26 +66,6 @@
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnNextEntry
-            // 
-            this.btnNextEntry.Location = new System.Drawing.Point(751, 133);
-            this.btnNextEntry.Name = "btnNextEntry";
-            this.btnNextEntry.Size = new System.Drawing.Size(130, 28);
-            this.btnNextEntry.TabIndex = 34;
-            this.btnNextEntry.Text = "-->";
-            this.btnNextEntry.UseVisualStyleBackColor = true;
-            this.btnNextEntry.Click += new System.EventHandler(this.btnNextEntry_Click);
-            // 
-            // btnPreviousEntry
-            // 
-            this.btnPreviousEntry.Location = new System.Drawing.Point(551, 133);
-            this.btnPreviousEntry.Name = "btnPreviousEntry";
-            this.btnPreviousEntry.Size = new System.Drawing.Size(130, 28);
-            this.btnPreviousEntry.TabIndex = 32;
-            this.btnPreviousEntry.Text = "<--";
-            this.btnPreviousEntry.UseVisualStyleBackColor = true;
-            this.btnPreviousEntry.Click += new System.EventHandler(this.btnPreviousEntry_Click);
             // 
             // label1
             // 
@@ -199,8 +177,6 @@
             this.Controls.Add(this.dgvProviders);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnNextEntry);
-            this.Controls.Add(this.btnPreviousEntry);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProvidersWindow";
@@ -217,8 +193,6 @@
         #endregion
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnNextEntry;
-        private System.Windows.Forms.Button btnPreviousEntry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtPhone;

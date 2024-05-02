@@ -31,16 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnNextEntry = new System.Windows.Forms.Button();
-            this.btnPreviousEntry = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbZnak = new System.Windows.Forms.ComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvProducts = new System.Windows.Forms.DataGridView();
-            this.cmbZnak = new System.Windows.Forms.ComboBox();
             this.productIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,24 +67,6 @@
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnNextEntry
-            // 
-            this.btnNextEntry.Location = new System.Drawing.Point(670, 167);
-            this.btnNextEntry.Name = "btnNextEntry";
-            this.btnNextEntry.Size = new System.Drawing.Size(92, 28);
-            this.btnNextEntry.TabIndex = 26;
-            this.btnNextEntry.Text = "-->";
-            this.btnNextEntry.UseVisualStyleBackColor = true;
-            // 
-            // btnPreviousEntry
-            // 
-            this.btnPreviousEntry.Location = new System.Drawing.Point(488, 167);
-            this.btnPreviousEntry.Name = "btnPreviousEntry";
-            this.btnPreviousEntry.Size = new System.Drawing.Size(92, 28);
-            this.btnPreviousEntry.TabIndex = 24;
-            this.btnPreviousEntry.Text = "<--";
-            this.btnPreviousEntry.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -136,6 +116,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавить";
             // 
+            // cmbZnak
+            // 
+            this.cmbZnak.FormattingEnabled = true;
+            this.cmbZnak.Items.AddRange(new object[] {
+            "=",
+            "<=",
+            ">="});
+            this.cmbZnak.Location = new System.Drawing.Point(213, 66);
+            this.cmbZnak.Name = "cmbZnak";
+            this.cmbZnak.Size = new System.Drawing.Size(53, 28);
+            this.cmbZnak.TabIndex = 39;
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(136, 106);
@@ -148,6 +140,7 @@
             // 
             // dgvProducts
             // 
+            this.dgvProducts.AllowUserToAddRows = false;
             this.dgvProducts.AutoGenerateColumns = false;
             this.dgvProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -163,18 +156,6 @@
             this.dgvProducts.TabIndex = 37;
             this.dgvProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProducts_CellEndEdit);
             this.dgvProducts.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvProducts_UserDeletingRow);
-            // 
-            // cmbZnak
-            // 
-            this.cmbZnak.FormattingEnabled = true;
-            this.cmbZnak.Items.AddRange(new object[] {
-            "=",
-            "<=",
-            ">="});
-            this.cmbZnak.Location = new System.Drawing.Point(213, 66);
-            this.cmbZnak.Name = "cmbZnak";
-            this.cmbZnak.Size = new System.Drawing.Size(53, 28);
-            this.cmbZnak.TabIndex = 39;
             // 
             // productIDDataGridViewTextBoxColumn
             // 
@@ -213,8 +194,6 @@
             this.Controls.Add(this.dgvProducts);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnNextEntry);
-            this.Controls.Add(this.btnPreviousEntry);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProductsWindow";
@@ -232,8 +211,6 @@
         #endregion
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnNextEntry;
-        private System.Windows.Forms.Button btnPreviousEntry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;

@@ -25,44 +25,6 @@ namespace BD_6
 
         }
 
-        #region Навигация
-        private void btnPreviousEntry_Click(object sender, EventArgs e)
-        {
-            int currentIndex = dgvDepartments.SelectedRows[0].Index;
-            if (currentIndex > 0)
-            {
-                SelectRow(currentIndex - 1);
-                btnNextEntry.Enabled = true;
-            }
-            else
-            {
-                btnPreviousEntry.Enabled = false;
-            }
-        }
-
-        private void btnNextEntry_Click(object sender, EventArgs e)
-        {
-            int currentIndex = dgvDepartments.SelectedRows[0].Index;
-            if (currentIndex < dgvDepartments.Rows.Count - 1)
-            {
-                SelectRow(currentIndex + 1);
-            }
-            else
-            {
-                btnNextEntry.Enabled = false;
-            }
-
-            btnPreviousEntry.Enabled = true;
-        }
-
-        private void SelectRow(int index)
-        {
-            dgvDepartments.ClearSelection();
-            dgvDepartments.Rows[index].Selected = true;
-            dgvDepartments.FirstDisplayedScrollingRowIndex = Math.Max(0, index - DGV_SCROLL_OFFSET);
-        }
-        #endregion
-
         #region Изменение таблицы
 
         #region Удаление

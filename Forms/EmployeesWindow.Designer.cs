@@ -167,6 +167,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(212, 27);
             this.txtName.TabIndex = 20;
+            this.txtName.Tag = "full_name";
             // 
             // txtPhone
             // 
@@ -174,6 +175,7 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(176, 27);
             this.txtPhone.TabIndex = 22;
+            this.txtPhone.Tag = "phone_number";
             // 
             // label2
             // 
@@ -193,6 +195,7 @@
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.Size = new System.Drawing.Size(197, 28);
             this.cmbDepartment.TabIndex = 23;
+            this.cmbDepartment.Tag = "departmentID";
             this.cmbDepartment.ValueMember = "departmentID";
             // 
             // departmentBindingSource1

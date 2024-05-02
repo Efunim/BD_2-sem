@@ -4,8 +4,10 @@ using System;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BD_6
 {
@@ -90,7 +92,7 @@ namespace BD_6
 
             ClearAddingFields();
         }
-
+                
         private void dgvEmployees_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             _db.SaveChanges();
@@ -135,13 +137,13 @@ namespace BD_6
         #region Вспомогательные
         private bool isValidData()
         {
-            return txtName.Text != "" && cmbDepartment.SelectedIndex != -1;
+            return txtName.Text != null && cmbDepartment.SelectedIndex != -1;
         }
 
         private void ClearAddingFields()
         {
-            txtName.Text = "";
-            txtPhone.Text = "";
+            txtName.Text = null;
+            txtPhone.Text = null;
             cmbDepartment.SelectedIndex = -1;
         }
         #endregion

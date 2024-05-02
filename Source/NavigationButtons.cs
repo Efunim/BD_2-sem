@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,7 +19,10 @@ namespace BD_6
         public DataGridView DgvTable
         {
             get { return _dgvTable; }
-            set { _dgvTable = value; }
+            set 
+            { 
+                _dgvTable = value;
+            }
         }
 
         public NavigationButtons()
@@ -27,7 +31,7 @@ namespace BD_6
         }
         private void btnPreviousEntry_Click(object sender, EventArgs e)
         {
-            int currentIndex = this._dgvTable.SelectedRows[0].Index;
+            int currentIndex = this._dgvTable.CurrentRow.Index;
             if (currentIndex > 0)
             {
                 SelectRow(currentIndex - 1);

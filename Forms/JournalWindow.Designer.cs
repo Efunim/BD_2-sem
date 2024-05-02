@@ -67,8 +67,9 @@
             this.productColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.providerColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.purchasedateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.current_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTotalItemPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.journalBindingSource)).BeginInit();
@@ -389,14 +390,16 @@
             // 
             this.dgvJournal.AllowUserToAddRows = false;
             this.dgvJournal.AutoGenerateColumns = false;
+            this.dgvJournal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvJournal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvJournal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.employeeColumn,
             this.productColumn,
             this.providerColumn,
             this.purchasedateDataGridViewTextBoxColumn,
-            this.countDataGridViewTextBoxColumn,
-            this.current_price});
+            this.clmCount,
+            this.current_price,
+            this.clmTotalItemPrice});
             this.dgvJournal.DataSource = this.journalBindingSource;
             this.dgvJournal.Location = new System.Drawing.Point(13, 12);
             this.dgvJournal.Name = "dgvJournal";
@@ -405,6 +408,7 @@
             this.dgvJournal.Size = new System.Drawing.Size(930, 499);
             this.dgvJournal.TabIndex = 40;
             this.dgvJournal.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJournal_CellEndEdit);
+            this.dgvJournal.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvJournal_CellFormatting);
             this.dgvJournal.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvJournal_UserDeletingRow);
             // 
             // employeeColumn
@@ -418,7 +422,6 @@
             this.employeeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.employeeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.employeeColumn.ValueMember = "employeeID";
-            this.employeeColumn.Width = 250;
             // 
             // productColumn
             // 
@@ -430,7 +433,6 @@
             this.productColumn.Name = "productColumn";
             this.productColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.productColumn.ValueMember = "productID";
-            this.productColumn.Width = 125;
             // 
             // providerColumn
             // 
@@ -443,7 +445,6 @@
             this.providerColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.providerColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.providerColumn.ValueMember = "providerID";
-            this.providerColumn.Width = 125;
             // 
             // purchasedateDataGridViewTextBoxColumn
             // 
@@ -451,15 +452,13 @@
             this.purchasedateDataGridViewTextBoxColumn.HeaderText = "Дата";
             this.purchasedateDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.purchasedateDataGridViewTextBoxColumn.Name = "purchasedateDataGridViewTextBoxColumn";
-            this.purchasedateDataGridViewTextBoxColumn.Width = 125;
             // 
-            // countDataGridViewTextBoxColumn
+            // clmCount
             // 
-            this.countDataGridViewTextBoxColumn.DataPropertyName = "count";
-            this.countDataGridViewTextBoxColumn.HeaderText = "Количество";
-            this.countDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
-            this.countDataGridViewTextBoxColumn.Width = 125;
+            this.clmCount.DataPropertyName = "count";
+            this.clmCount.HeaderText = "Количество";
+            this.clmCount.MinimumWidth = 6;
+            this.clmCount.Name = "clmCount";
             // 
             // current_price
             // 
@@ -467,7 +466,13 @@
             this.current_price.HeaderText = "Цена за ед.";
             this.current_price.MinimumWidth = 6;
             this.current_price.Name = "current_price";
-            this.current_price.Width = 125;
+            // 
+            // clmTotalItemPrice
+            // 
+            this.clmTotalItemPrice.HeaderText = "Общая цена";
+            this.clmTotalItemPrice.MinimumWidth = 6;
+            this.clmTotalItemPrice.Name = "clmTotalItemPrice";
+            this.clmTotalItemPrice.ReadOnly = true;
             // 
             // JournalWindow
             // 
@@ -539,7 +544,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn productColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn providerColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn purchasedateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn current_price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTotalItemPrice;
     }
 }
